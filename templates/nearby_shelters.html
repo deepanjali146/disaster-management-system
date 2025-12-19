@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Nearby Shelters{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Safe Gathering Places</h2>
+    <p class="text-center text-muted mb-4">Find nearby schools, temples, churches, community centers, and other safe locations for emergency shelter</p>
+    
+    <!-- Search form -->
+    <div class="row mb-4">
+        <div class="col-md-8 mx-auto">
+            <form method="POST">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="location" placeholder="Enter your location (e.g., 'Mumbai, India' or 'New York, NY')" value="{{ user_location }}" required>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-search me-2"></i>Find Safe Places</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Shelter cards -->
+    <div class="row">
+        {% for shelter in shelters %}
+        <div class="col-md-6 mb-4">
+            <div class="card shelter-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-2">
+                        <a href="#" onclick="openDirections('{{ shelter.lat }}', '{{ shelter.lon }}')" 
+                           class="text-decoration-underline" style="color: var(--primary);">
+                            {{ shelter.name }}
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted">
+                        <i class="fas fa-tag me-1"></i> Type: {{ shelter.type }}<br>
+                        <i class="fas fa-phone me-1"></i> Phone: {{ shelter.phone }}<br>
+                        <i class="fas fa-map-marker-alt me-1"></i> {{ shelter.address }}<br>
+                        <i class="fas fa-users me-1"></i> Capacity: {{ shelter.capacity }}<br>
+                        <i class="fas fa-road me-1"></i> Distance: {{ shelter.distance }}
+                    </p>
+                    <p class="text-muted small">
+                        <i class="fas fa-info-circle me-1"></i> Click on the shelter name for directions
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Info card -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Emergency Evacuation Information</h4>
+                    <p>If you need to evacuate to a safe gathering place, remember to bring:</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Essential medications</li>
+                                <li>Important documents</li>
+                                <li>Personal hygiene items</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Change of clothes</li>
+                                <li>Blankets or sleeping bags</li>
+                                <li>Flashlight with extra batteries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Note:</strong> These locations include schools, places of worship, community centers, and other safe gathering places that can provide shelter during emergencies.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openDirections(lat, lon) {
+    lat = parseFloat(lat);
+    lon = parseFloat(lon);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let userLat = position.coords.latitude;
+            let userLon = position.coords.longitude;
+
+            // Open Google Maps directions directly
+            let url = `https://www.google.com/maps/dir/${userLat},${userLon}/${lat},${lon}`;
+            window.open(url, "_blank");
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+</script>
+
+{% endblock %}

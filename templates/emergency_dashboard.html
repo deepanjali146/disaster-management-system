@@ -1,0 +1,923 @@
+{% extends "base.html" %}
+{% block title %}Emergency Dashboard{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="text-gradient mb-2">Emergency Team Dashboard</h1>
+                    <p class="text-muted">Manage your assignments, track progress, and report updates</p>
+                </div>
+                <div>
+                    <span class="badge bg-gradient-danger fs-6 px-3 py-2">Emergency Team</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ total_assignments or 0 }}</div>
+                <div class="admin-stats-label">Total Assignments</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ active_assignments or 0 }}</div>
+                <div class="admin-stats-label">Active Assignments</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ rescued_count or 0 }}</div>
+                <div class="admin-stats-label">People Rescued</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ completed_tasks or 0 }}</div>
+                <div class="admin-stats-label">Completed Tasks</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Section -->
+    {% if notifications %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bell me-2"></i>Government Notifications
+                        <span class="badge bg-light text-dark ms-2">{{ notifications|length }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Incident Details</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Received</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for notification in notifications %}
+                                <tr class="incident-card">
+                                    <td><strong>#{{ notification.request_id }}</strong></td>
+                                    <td>
+                                        <div>
+                                            {% if notification.requests and notification.requests.incidents %}
+                                            <strong>Incident #{{ notification.requests.incidents.id }}</strong>
+                                            <br><small class="text-muted">{{ notification.requests.incidents.description[:50] }}{% if notification.requests.incidents.description|length > 50 %}...{% endif %}</small>
+                                            {% else %}
+                                            <strong>Emergency Request</strong>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <strong>{{ notification.requests.incidents.location if notification.requests and notification.requests.incidents else 'N/A' }}</strong>
+                                            {% if notification.requests and notification.requests.incidents and notification.requests.incidents.pincode %}
+                                            <br><small class="text-muted">Pincode: {{ notification.requests.incidents.pincode }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{% if notification.status == 'Pending' %}warning{% elif notification.status == 'Acknowledged' %}info{% else %}success{% endif %} fs-6">
+                                            {{ notification.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ notification.created_at[:10] if notification.created_at else 'Recently' }}</small>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            {% if notification.status == 'Pending' %}
+                                            <form method="POST" action="{{ url_for('head_assign_unit') }}" class="d-inline">
+                                                <input type="hidden" name="request_id" value="{{ notification.request_id }}">
+                                                <select name="unit_id" class="form-select form-select-sm d-inline-block" style="width: auto;" required>
+                                                    <option value="">Select Unit</option>
+                                                    {% for unit in my_units %}
+                                                    {% if unit.status == 'Free' %}
+                                                    <option value="{{ unit.id }}">{{ unit.unit_name }} ({{ unit.unit_category }})</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                                <button type="submit" class="btn btn-sm btn-success" title="Assign Unit">
+                                                    <i class="fas fa-check me-1"></i>Assign
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                            <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#notificationModal{{ notification.id }}" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <form method="POST" action="{{ url_for('delete_notification') }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this notification? This will remove it from your dashboard.')">
+                                                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete Notification">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <!-- Current Assignments -->
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-tasks me-2"></i>Your Current Assignments
+                        <span class="badge bg-light text-dark ms-2">{{ assignments|length if assignments else 0 }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if assignments %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Assignment ID</th>
+                                        <th>Team</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Assigned</th>
+                                        <th>Progress</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for assignment in assignments %}
+                                     <tr class="incident-card">
+                                         <td><strong>#{{ assignment.id }}</strong></td>
+                                         <td>
+                                             <div>
+                                                 <strong>{{ assignment.team_name or 'Emergency Team' }}</strong>
+                                                 {% if assignment.team_type %}
+                                                 <br><small class="text-muted">{{ assignment.team_type }}</small>
+                                                 {% endif %}
+                                                 {% if assignment.additional_teams %}
+                                                 <br><small class="text-success">
+                                                     <i class="fas fa-plus-circle me-1"></i>
+                                                     +{{ assignment.additional_teams|length }} more team(s)
+                                                 </small>
+                                                 {% endif %}
+                                             </div>
+                                         </td>
+                                        <td>
+                                            <div>
+                                                <strong>{{ assignment.location_text or (assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'N/A') }}</strong>
+                                                {% if assignment.requests and assignment.requests.incidents and assignment.requests.incidents.pincode %}
+                                                <br><small class="text-muted">Pincode: {{ assignment.requests.incidents.pincode }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{% if assignment.assignment_status == 'assigned' %}secondary{% elif assignment.assignment_status == 'in_progress' %}warning{% elif assignment.assignment_status == 'completed' %}success{% else %}danger{% endif %} fs-6">
+                                                {{ assignment.assignment_status|title if assignment.assignment_status else 'Assigned' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ assignment.assigned_at[:10] if assignment.assigned_at else 'Recently' }}</small>
+                                        </td>
+                                        <td>
+                                            <div class="progress" style="height: 20px;">
+                                                {% set progress = 0 %}
+                                                {% if assignment.assignment_status == 'assigned' %}
+                                                    {% set progress = 25 %}
+                                                {% elif assignment.assignment_status == 'in_progress' %}
+                                                    {% set progress = 50 %}
+                                                {% elif assignment.assignment_status == 'completed' %}
+                                                    {% set progress = 100 %}
+                                                {% endif %}
+                                                <div class="progress-bar bg-{% if progress == 100 %}success{% elif progress >= 50 %}warning{% else %}info{% endif %}" 
+                                                     role="progressbar" style="width: {{ progress }}%">
+                                                    {{ progress }}%
+                                                </div>
+                                            </div>
+                                        </td>
+                                         <td>
+                                             <div class="btn-group" role="group">
+                                                 <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#assignmentModal{{ assignment.id }}" title="View Details">
+                                                     <i class="fas fa-eye"></i>
+                                                 </button>
+                                                 <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#assignAdditionalTeamModal{{ assignment.id }}" title="Assign Additional Team">
+                                                     <i class="fas fa-plus"></i>
+                                                 </button>
+                                             </div>
+                                         </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No current assignments</h5>
+                            <p class="text-muted">New assignments will appear here when assigned by government</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Tasks -->
+        <div class="col-lg-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-check-circle me-2"></i>Completed Tasks
+                        <span class="badge bg-light text-dark ms-2">{{ completed_assignments|length if completed_assignments else 0 }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if completed_assignments %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Assignment ID</th>
+                                        <th>Incident Description</th>
+                                        <th>Location</th>
+                                        <th>Team</th>
+                                        <th>Completed At</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for assignment in completed_assignments %}
+                                    <tr class="incident-card">
+                                        <td><strong>#{{ assignment.id }}</strong></td>
+                                        <td>
+                                            <div>
+                                                <strong>{{ assignment.requests.incidents.description if assignment.requests and assignment.requests.incidents else 'Emergency Response' }}</strong>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <strong>{{ assignment.location_text or (assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'N/A') }}</strong>
+                                                {% if assignment.requests and assignment.requests.incidents and assignment.requests.incidents.pincode %}
+                                                <br><small class="text-muted">Pincode: {{ assignment.requests.incidents.pincode }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <strong>{{ assignment.team_name or 'Emergency Team' }}</strong>
+                                                {% if assignment.team_type %}
+                                                <br><small class="text-muted">{{ assignment.team_type }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ assignment.completed_at[:16] if assignment.completed_at else 'Recently' }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success fs-6">Completed</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#completedModal{{ assignment.id }}" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-check-circle fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No completed tasks</h5>
+                            <p class="text-muted">Completed tasks will appear here</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Quick Actions & Statistics -->
+        <div class="col-lg-4 mb-4">
+            <!-- Quick Actions -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportUpdateModal">
+                            <i class="fas fa-edit me-2"></i>Report Update
+                        </button>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#completeTaskModal">
+                            <i class="fas fa-check me-2"></i>Complete Task
+                        </button>
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#requestSupportModal">
+                            <i class="fas fa-phone me-2"></i>Request Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Performance -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Team Performance
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="donation-card">
+                                <div class="h4 text-success mb-1">{{ rescued_count or 0 }}</div>
+                                <small class="text-muted">People Rescued</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="donation-card">
+                                <div class="h4 text-warning mb-1">{{ critical_count or 0 }}</div>
+                                <small class="text-muted">Critical Cases</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Response Time</span>
+                        <span class="badge bg-success">Fast</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Success Rate</span>
+                        <span class="badge bg-success">95%</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Team Rating</span>
+                        <span class="badge bg-success">Excellent</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Emergency Units -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users me-2"></i>My Emergency Units
+                        <span class="badge bg-light text-dark ms-2">{{ my_units|length if my_units else 0 }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if my_units %}
+                        <div class="list-group list-group-flush">
+                            {% for unit in my_units %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ unit.unit_name }}</strong>
+                                    <br><small class="text-muted">{{ unit.unit_category }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-{% if unit.status == 'Free' %}success{% elif unit.status == 'Busy' %}warning{% else %}secondary{% endif %} mb-1">
+                                        {{ unit.status }}
+                                    </span>
+                                    <br>
+                                    <form method="POST" action="{{ url_for('toggle_unit_status') }}" class="d-inline">
+                                        <input type="hidden" name="unit_id" value="{{ unit.id }}">
+                                        <button type="submit" class="btn btn-sm btn-outline-primary" title="Toggle Status">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <form method="POST" action="{{ url_for('create_unit') }}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="unit_name" placeholder="New unit name" required>
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="text-center py-3">
+                            <i class="fas fa-users fa-2x text-muted mb-2"></i>
+                            <p class="text-muted">No emergency units created yet</p>
+                            <form method="POST" action="{{ url_for('create_unit') }}">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="unit_name" placeholder="Create first unit" required>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Create
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Emergency Contacts -->
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-phone me-2"></i>Emergency Contacts
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Emergency Hotline</strong>
+                                <br><small class="text-muted">24/7 Support</small>
+                            </div>
+                            <a href="tel:108" class="btn btn-sm btn-danger">
+                                <i class="fas fa-phone"></i> 108
+                            </a>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Government Control</strong>
+                                <br><small class="text-muted">Direct Line</small>
+                            </div>
+                            <a href="tel:+911234567890" class="btn btn-sm btn-primary">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Medical Emergency</strong>
+                                <br><small class="text-muted">Ambulance</small>
+                            </div>
+                            <a href="tel:102" class="btn btn-sm btn-success">
+                                <i class="fas fa-ambulance"></i> 102
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Updates Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-history me-2"></i>Recent Updates & Reports
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if emergency_updates %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Assignment</th>
+                                        <th>Location</th>
+                                        <th>Rescued</th>
+                                        <th>Critical</th>
+                                        <th>Status</th>
+                                        <th>Update Time</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for update in emergency_updates %}
+                                    <tr>
+                                        <td><strong>#{{ update.assignment_id }}</strong></td>
+                                        <td>{{ update.location or 'N/A' }}</td>
+                                        <td>
+                                            <span class="badge bg-success">{{ update.rescued_count or 0 }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-danger">{{ update.critical_count or 0 }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{% if update.assignment_status == 'completed' %}success{% elif update.assignment_status == 'in_progress' %}warning{% else %}info{% endif %}">
+                                                {{ update.assignment_status|title if update.assignment_status else 'Assigned' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <small class="text-muted">{{ update.update_time[:16] if update.update_time else 'Recently' }}</small>
+                                                {% if update.author_id == session.get('user_id') %}
+                                                <form method="POST" action="{{ url_for('delete_update', update_id=update.update_id or update.id) }}" onsubmit="return confirm('Delete this update?')">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete update">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-truncate" style="max-width: 200px;" title="{{ update.message or 'No message' }}">
+                                                {{ update.message or 'No message' }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No recent updates</h5>
+                            <p class="text-muted">Your team updates will appear here</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Assignment Detail Modals -->
+{% for assignment in assignments %}
+<div class="modal fade" id="assignmentModal{{ assignment.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-tasks me-2"></i>Assignment Details #{{ assignment.id }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Assignment Information</h6>
+                        <p><strong>Team:</strong> {{ assignment.team_name or 'Emergency Team' }}</p>
+                        <p><strong>Type:</strong> {{ assignment.team_type or 'Emergency Response' }}</p>
+                        <p><strong>Status:</strong> 
+                            <span class="badge bg-{% if assignment.assignment_status == 'assigned' %}secondary{% elif assignment.assignment_status == 'in_progress' %}warning{% elif assignment.assignment_status == 'completed' %}success{% else %}danger{% endif %}">
+                                {{ assignment.assignment_status|title if assignment.assignment_status else 'Assigned' }}
+                            </span>
+                        </p>
+                        <p><strong>Assigned:</strong> {{ assignment.assigned_at[:16] if assignment.assigned_at else 'Recently' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Location Details</h6>
+                        <p><strong>Location:</strong> {{ assignment.location_text or (assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'N/A') }}</p>
+                        {% if assignment.requests and assignment.requests.incidents and assignment.requests.incidents.pincode %}
+                        <p><strong>Pincode:</strong> {{ assignment.requests.incidents.pincode }}</p>
+                        {% endif %}
+                        {% if assignment.notes %}
+                        <p><strong>Notes:</strong> {{ assignment.notes }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if assignment.requests and assignment.requests.incidents %}
+                <hr>
+                <h6>Incident Description</h6>
+                <p>{{ assignment.requests.incidents.description }}</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Update Assignment Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-edit me-2"></i>Report Assignment Update
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('report_assignment_update') }}">
+                    <div class="mb-3">
+                        <label for="assignment_id" class="form-label">Assignment ID</label>
+                        <select class="form-select" id="assignment_id" name="assignment_id" required>
+                            <option value="">Select Assignment</option>
+                            {% for assignment in assignments %}
+                            <option value="{{ assignment.id }}">#{{ assignment.id }} - {{ assignment.location_text or 'Emergency Assignment' }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rescued_count" class="form-label">People Rescued</label>
+                        <input type="number" class="form-control" id="rescued_count" name="rescued_count" min="0" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="critical_count" class="form-label">Critical Cases</label>
+                        <input type="number" class="form-control" id="critical_count" name="critical_count" min="0" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Update Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" placeholder="Describe the current situation and any updates..."></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane me-1"></i>Submit Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Detail Modals -->
+{% for notification in notifications or [] %}
+<div class="modal fade" id="notificationModal{{ notification.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-warning text-dark">
+                <h5 class="modal-title">
+                    <i class="fas fa-bell me-2"></i>Notification Details #{{ notification.id }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                {% if notification.requests and notification.requests.incidents %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Request Information</h6>
+                        <p><strong>Request ID:</strong> #{{ notification.request_id }}</p>
+                        <p><strong>Status:</strong> 
+                            <span class="badge bg-{% if notification.status == 'Pending' %}warning{% elif notification.status == 'Acknowledged' %}info{% else %}success{% endif %}">
+                                {{ notification.status }}
+                            </span>
+                        </p>
+                        <p><strong>Received:</strong> {{ notification.created_at[:16] if notification.created_at else 'Recently' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Incident Details</h6>
+                        <p><strong>Incident ID:</strong> #{{ notification.requests.incidents.id }}</p>
+                        <p><strong>Location:</strong> {{ notification.requests.incidents.location }}</p>
+                        {% if notification.requests.incidents.pincode %}
+                        <p><strong>Pincode:</strong> {{ notification.requests.incidents.pincode }}</p>
+                        {% endif %}
+                        <p><strong>Severity:</strong> 
+                            <span class="incident-severity severity-{{ notification.requests.incidents.severity|lower }}">
+                                {{ notification.requests.incidents.severity|title }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <h6>Description</h6>
+                <p>{{ notification.requests.incidents.description }}</p>
+                {% else %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Incident details not available
+                </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                {% if notification.status == 'Pending' %}
+                <form method="POST" action="{{ url_for('head_assign_unit') }}" class="d-inline">
+                    <input type="hidden" name="request_id" value="{{ notification.request_id }}">
+                    <select name="unit_id" class="form-select d-inline-block me-2" style="width: auto;" required>
+                        <option value="">Select Unit</option>
+                        {% for unit in my_units %}
+                        {% if unit.status == 'Free' %}
+                        <option value="{{ unit.id }}">{{ unit.unit_name }} ({{ unit.unit_category }})</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check me-1"></i>Assign Unit
+                    </button>
+                </form>
+                {% endif %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Quick Actions Modals -->
+<!-- Report Update Modal -->
+<div class="modal fade" id="reportUpdateModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-edit me-2"></i>Report Assignment Update
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('report_assignment_update') }}">
+                    <div class="mb-3">
+                        <label for="assignment_id" class="form-label">Select Assignment</label>
+                        <select class="form-select" id="assignment_id" name="assignment_id" required>
+                            <option value="">Choose an assignment...</option>
+                            {% for assignment in assignments %}
+                            {% if assignment.status != 'Completed' %}
+                            <option value="{{ assignment.id }}">#{{ assignment.id }} - {{ assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'Emergency Assignment' }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rescued_count" class="form-label">People Rescued</label>
+                        <input type="number" class="form-control" id="rescued_count" name="rescued_count" min="0" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="critical_count" class="form-label">Critical Cases</label>
+                        <input type="number" class="form-control" id="critical_count" name="critical_count" min="0" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Update Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" placeholder="Describe the current situation, any challenges, or additional needs..."></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1"></i>Submit Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Complete Task Modal -->
+<div class="modal fade" id="completeTaskModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check me-2"></i>Complete Assignment
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('complete_assignment') }}">
+                    <div class="mb-3">
+                        <label for="assignment_id" class="form-label">Select Assignment to Complete</label>
+                        <select class="form-select" id="assignment_id" name="assignment_id" required>
+                            <option value="">Choose an assignment...</option>
+                            {% for assignment in assignments %}
+                            {% if assignment.status in ['Assigned', 'Enroute', 'OnSite'] %}
+                            <option value="{{ assignment.id }}">#{{ assignment.id }} - {{ assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'Emergency Assignment' }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="completion_notes" class="form-label">Completion Notes</label>
+                        <textarea class="form-control" id="completion_notes" name="completion_notes" rows="3" placeholder="Brief summary of what was accomplished..."></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check-circle me-1"></i>Mark as Completed
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Request Support Modal -->
+<div class="modal fade" id="requestSupportModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-info text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-phone me-2"></i>Request Additional Support
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('request_additional_support') }}">
+                    <div class="mb-3">
+                        <label for="assignment_id" class="form-label">Select Assignment</label>
+                        <select class="form-select" id="assignment_id" name="assignment_id" required>
+                            <option value="">Choose an assignment...</option>
+                            {% for assignment in assignments %}
+                            {% if assignment.status != 'Completed' %}
+                            <option value="{{ assignment.id }}">#{{ assignment.id }} - {{ assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'Emergency Assignment' }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="support_type" class="form-label">Type of Support Needed</label>
+                        <select class="form-select" id="support_type" name="support_type" required>
+                            <option value="">Select support type...</option>
+                            <option value="medical">Medical Assistance</option>
+                            <option value="rescue">Additional Rescue Teams</option>
+                            <option value="equipment">Special Equipment</option>
+                            <option value="transport">Transportation</option>
+                            <option value="other">Other Support</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="urgency" class="form-label">Urgency Level</label>
+                        <select class="form-select" id="urgency" name="urgency" required>
+                            <option value="low">Low - Can wait</option>
+                            <option value="medium">Medium - Within 1 hour</option>
+                            <option value="high">High - Immediate</option>
+                            <option value="critical">Critical - Life threatening</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="support_message" class="form-label">Support Request Details</label>
+                        <textarea class="form-control" id="support_message" name="support_message" rows="4" placeholder="Describe what additional support is needed, current situation, and any specific requirements..."></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-info">
+                            <i class="fas fa-paper-plane me-1"></i>Request Support
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Completed Task Detail Modals -->
+ {% for assignment in completed_assignments %}
+ <div class="modal fade" id="completedModal{{ assignment.id }}" tabindex="-1">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header bg-success text-white">
+                 <h5 class="modal-title">
+                     <i class="fas fa-check-circle me-2"></i>Completed Task Details #{{ assignment.id }}
+                 </h5>
+                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+             </div>
+             <div class="modal-body">
+                 <div class="row">
+                     <div class="col-md-6">
+                         <h6><i class="fas fa-info-circle me-1"></i>Task Information</h6>
+                         <p><strong>Assignment ID:</strong> #{{ assignment.id }}</p>
+                         <p><strong>Team:</strong> {{ assignment.team_name or 'Emergency Team' }}</p>
+                         <p><strong>Team Type:</strong> {{ assignment.team_type or 'N/A' }}</p>
+                         <p><strong>Status:</strong> <span class="badge bg-success">Completed</span></p>
+                         <p><strong>Completed At:</strong> {{ assignment.completed_at[:16] if assignment.completed_at else 'Recently' }}</p>
+                     </div>
+                     <div class="col-md-6">
+                         <h6><i class="fas fa-map-marker-alt me-1"></i>Location Details</h6>
+                         <p><strong>Location:</strong> {{ assignment.location_text or (assignment.requests.incidents.location if assignment.requests and assignment.requests.incidents else 'N/A') }}</p>
+                         {% if assignment.requests and assignment.requests.incidents and assignment.requests.incidents.pincode %}
+                         <p><strong>Pincode:</strong> {{ assignment.requests.incidents.pincode }}</p>
+                         {% endif %}
+                     </div>
+                 </div>
+                 <hr>
+                 <div class="row">
+                     <div class="col-12">
+                         <h6><i class="fas fa-exclamation-triangle me-1"></i>Incident Description</h6>
+                         <div class="alert alert-info">
+                             {{ assignment.requests.incidents.description if assignment.requests and assignment.requests.incidents else 'Emergency Response Task' }}
+                         </div>
+                     </div>
+                 </div>
+                 {% if assignment.notes %}
+                 <div class="row">
+                     <div class="col-12">
+                         <h6><i class="fas fa-sticky-note me-1"></i>Notes</h6>
+                         <p>{{ assignment.notes }}</p>
+                     </div>
+                 </div>
+                 {% endif %}
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             </div>
+         </div>
+     </div>
+ </div>
+ {% endfor %}
+
+ {% endblock %}

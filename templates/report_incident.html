@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Report Incident{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="incident-form form-container">
+                <h2 class="text-center mb-2">Report an Incident</h2>
+                <p class="text-center text-muted mb-4">Provide accurate details to help responders act quickly</p>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter the location" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Street/Area">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="cause" class="form-label">Likely Cause</label>
+                            <input type="text" class="form-control" id="cause" name="cause" placeholder="e.g., Flood, Fire">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pincode" class="form-label">Pincode (required)</label>
+                            <input type="text" class="form-control" id="pincode" name="pincode" placeholder="e.g., 560001" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Provide details about the incident" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">Report Incident</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

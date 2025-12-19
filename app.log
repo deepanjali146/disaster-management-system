@@ -1,0 +1,1177 @@
+2025-10-05 14:36:24,015 - ERROR - fetch_extreme_weather: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\utils\error_handling.py", line 11, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\app.py", line 989, in fetch_extreme_weather
+    extreme_weather_locations = WeatherService.fetch_multiple_locations_weather(APP_STATE)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 103, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 36, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:38,661 - ERROR - weather_json_decode [Chennai, Tamil Nadu, India] snippet=Unknown location; please try ~13.0836939,80.270186 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:38,859 - ERROR - weather_json_decode [Kolkata, West Bengal, India] snippet=Unknown location; please try ~22.5726723,88.3638815 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:39,316 - ERROR - weather_json_decode [Ahmedabad, Gujarat, India] snippet=Unknown location; please try ~23.0216238,72.5797068 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:40,027 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:47,371 - ERROR - weather_fetch_task [Lucknow, Uttar Pradesh, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Lucknow%2C%20Uttar%20Pradesh%2C%20India?format=j1 (Caused by ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Lucknow%2C%20Uttar%20Pradesh%2C%20India?format=j1 (Caused by ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Lucknow%2C%20Uttar%20Pradesh%2C%20India?format=j1 (Caused by ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))
+2025-10-05 14:38:49,735 - ERROR - weather_fetch_task [Jaipur, Rajasthan, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Jaipur%2C%20Rajasthan%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+urllib3.exceptions.ResponseError: too many 503 error responses
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 932, in urlopen
+    retries = retries.increment(method, url, response=response, _pool=self)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Jaipur%2C%20Rajasthan%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 668, in send
+    raise RetryError(e, request=request)
+requests.exceptions.RetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Jaipur%2C%20Rajasthan%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+2025-10-05 14:38:49,831 - ERROR - weather_json_decode [Thane, Maharashtra, India] snippet=Unknown location; please try ~19.3592411,73.3708245 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:49,868 - ERROR - weather_fetch_task [Bengaluru, Karnataka, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Bengaluru%2C%20Karnataka%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+urllib3.exceptions.ResponseError: too many 503 error responses
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 932, in urlopen
+    retries = retries.increment(method, url, response=response, _pool=self)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Bengaluru%2C%20Karnataka%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 668, in send
+    raise RetryError(e, request=request)
+requests.exceptions.RetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Bengaluru%2C%20Karnataka%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+2025-10-05 14:38:49,941 - ERROR - weather_fetch_task [Pune, Maharashtra, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Pune%2C%20Maharashtra%2C%20India?format=j1 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000024DF10FDC00>, 'Connection to wttr.in timed out. (connect timeout=3)'))
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 753, in connect
+    self.sock = sock = self._new_conn()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x0000024DF10FDC00>, 'Connection to wttr.in timed out. (connect timeout=3)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Pune%2C%20Maharashtra%2C%20India?format=j1 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000024DF10FDC00>, 'Connection to wttr.in timed out. (connect timeout=3)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 665, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Pune%2C%20Maharashtra%2C%20India?format=j1 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000024DF10FDC00>, 'Connection to wttr.in timed out. (connect timeout=3)'))
+2025-10-05 14:38:50,726 - ERROR - weather_fetch_task [Hyderabad, Telangana, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Hyderabad%2C%20Telangana%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 790, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 969, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\ssl_.py", line 480, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\ssl_.py", line 524, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "C:\Program Files\Python310\lib\ssl.py", line 513, in wrap_socket
+    return self.sslsocket_class._create(
+  File "C:\Program Files\Python310\lib\ssl.py", line 1071, in _create
+    self.do_handshake()
+  File "C:\Program Files\Python310\lib\ssl.py", line 1342, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:980: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 466, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=conn.timeout)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Hyderabad%2C%20Telangana%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Hyderabad%2C%20Telangana%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+2025-10-05 14:38:50,965 - ERROR - weather_json_decode [Bhopal, Madhya Pradesh, India] snippet=Unknown location; please try ~23.2584857,77.401989 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:51,256 - ERROR - weather_fetch_task [Indore, Madhya Pradesh, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Indore%2C%20Madhya%20Pradesh%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+urllib3.exceptions.ResponseError: too many 503 error responses
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 932, in urlopen
+    retries = retries.increment(method, url, response=response, _pool=self)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Indore%2C%20Madhya%20Pradesh%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 668, in send
+    raise RetryError(e, request=request)
+requests.exceptions.RetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Indore%2C%20Madhya%20Pradesh%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+2025-10-05 14:38:51,260 - ERROR - weather_json_decode [Visakhapatnam, Andhra Pradesh, India] snippet=Unknown location; please try ~17.6935526,83.2921297 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:51,770 - ERROR - weather_json_decode [Mumbai, Maharashtra, India] snippet=Unknown location; please try ~19.0785451,72.878176 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:51,890 - ERROR - weather_json_decode [Cuttack, Odisha, India] snippet=Unknown location; please try ~20.4686,85.8792 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:52,174 - ERROR - weather_json_decode [Guwahati, Assam, India] snippet=Unknown location; please try ~26.1805978,91.753943 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:52,297 - ERROR - weather_json_decode [Shillong, Meghalaya, India] snippet=Unknown location; please try ~25.5760446,91.8825282 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:52,328 - ERROR - weather_json_decode [Raipur, Chhattisgarh, India] snippet=Unknown location; please try ~21.2380912,81.6336993 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:52,361 - ERROR - weather_json_decode [Jabalpur, Madhya Pradesh, India] snippet=Unknown location; please try ~23.1701522,79.9324505 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:53,834 - ERROR - weather_fetch_task [Surat, Gujarat, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Surat%2C%20Gujarat%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 790, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 969, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\ssl_.py", line 480, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\ssl_.py", line 524, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "C:\Program Files\Python310\lib\ssl.py", line 513, in wrap_socket
+    return self.sslsocket_class._create(
+  File "C:\Program Files\Python310\lib\ssl.py", line 1071, in _create
+    self.do_handshake()
+  File "C:\Program Files\Python310\lib\ssl.py", line 1342, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:980: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 466, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=conn.timeout)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Surat%2C%20Gujarat%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Surat%2C%20Gujarat%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+2025-10-05 14:38:54,423 - ERROR - weather_json_decode [Ranchi, Jharkhand, India] snippet=Unknown location; please try ~23.3700354,85.3250132 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:38:55,197 - ERROR - weather_fetch_task [Nagpur, Maharashtra, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Nagpur%2C%20Maharashtra%2C%20India?format=j1 (Caused by ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Nagpur%2C%20Maharashtra%2C%20India?format=j1 (Caused by ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Nagpur%2C%20Maharashtra%2C%20India?format=j1 (Caused by ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))
+2025-10-05 14:38:55,326 - ERROR - weather_fetch_task [New Delhi, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /New%20Delhi%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+urllib3.exceptions.ResponseError: too many 503 error responses
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 932, in urlopen
+    retries = retries.increment(method, url, response=response, _pool=self)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /New%20Delhi%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 668, in send
+    raise RetryError(e, request=request)
+requests.exceptions.RetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /New%20Delhi%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+2025-10-05 14:38:59,725 - ERROR - weather_json_decode [Bhubaneswar, Odisha, India] snippet=Unknown location; please try ~20.2602964,85.8394521 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:39:07,757 - ERROR - weather_fetch_task [Patna, Bihar, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Patna%2C%20Bihar%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 790, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connection.py", line 969, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\ssl_.py", line 480, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\ssl_.py", line 524, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "C:\Program Files\Python310\lib\ssl.py", line 513, in wrap_socket
+    return self.sslsocket_class._create(
+  File "C:\Program Files\Python310\lib\ssl.py", line 1071, in _create
+    self.do_handshake()
+  File "C:\Program Files\Python310\lib\ssl.py", line 1342, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: _ssl.c:980: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 466, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=conn.timeout)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Patna%2C%20Bihar%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Patna%2C%20Bihar%2C%20India?format=j1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='wttr.in', port=443): Read timed out. (read timeout=3)"))
+2025-10-05 14:39:17,148 - ERROR - weather_fetch_task [Gwalior, Madhya Pradesh, India] HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Gwalior%2C%20Madhya%20Pradesh%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+urllib3.exceptions.ResponseError: too many 503 error responses
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 942, in urlopen
+    return self.urlopen(
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\connectionpool.py", line 932, in urlopen
+    retries = retries.increment(method, url, response=response, _pool=self)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Gwalior%2C%20Madhya%20Pradesh%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 120, in fetch_multiple_locations_weather
+    data = f.result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Program Files\Python310\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Program Files\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 35, in fetch_weather_data
+    response = session.get(weather_url, timeout=(3, 8))
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\adapters.py", line 668, in send
+    raise RetryError(e, request=request)
+requests.exceptions.RetryError: HTTPSConnectionPool(host='wttr.in', port=443): Max retries exceeded with url: /Gwalior%2C%20Madhya%20Pradesh%2C%20India?format=j1 (Caused by ResponseError('too many 503 error responses'))
+2025-10-05 14:39:28,072 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:40:43,787 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:41:37,955 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:42:19,331 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 14:47:58,400 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 15:10:55,781 - ERROR - weather_json_decode [Kanpur, Uttar Pradesh, India] snippet=Unknown location; please try ~26.4609135,80.3217588 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rahul\Desktop\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Rahul\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 23:13:15,162 - INFO - Weather data inserted for Mumbai, India with ID: 33
+2025-10-05 23:13:15,162 - INFO - Weather data stored for Mumbai, India with ID: 33
+2025-10-05 23:13:15,162 - INFO - Starting optimized weather data fetch and store operation
+2025-10-05 23:13:16,166 - ERROR - weather_json_decode [Kolkata, West Bengal, India] snippet=Unknown location; please try ~22.5726723,88.3638815 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 23:13:18,138 - ERROR - weather_json_decode [Bhopal, Madhya Pradesh, India] snippet=Unknown location; please try ~23.2584857,77.401989 Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Program Files\Python310\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Program Files\Python310\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\DM\services\weather_service.py", line 47, in fetch_weather_data
+    weather_data = response.json()
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-10-05 23:13:19,317 - INFO - Weather fetch completed: 12/12 cities processed
+2025-10-05 23:13:19,317 - INFO - Weather operation completed in 4.15s: 0 stored, 0 extreme
+2025-10-05 23:13:52,804 - INFO - Weather data inserted for Mumbai, India with ID: 34
+2025-10-05 23:13:52,804 - INFO - Weather data stored for Mumbai, India with ID: 34
+2025-10-05 23:13:52,804 - INFO - Starting optimized weather data fetch and store operation
+2025-10-05 23:13:57,420 - INFO - Weather fetch completed: 12/12 cities processed
+2025-10-05 23:13:57,609 - INFO - Weather data inserted for Chennai, India with ID: 35
+2025-10-05 23:13:57,609 - WARNING - Extreme weather detected: Chennai, India - High wind speed: 22.0 km/h
+2025-10-05 23:13:57,730 - INFO - Weather data inserted for Bhopal, India with ID: 36
+2025-10-05 23:13:57,730 - WARNING - Extreme weather detected: Bhopal, India - Severe weather: Rain with thunderstorm
+2025-10-05 23:13:57,730 - INFO - Weather operation completed in 4.93s: 2 stored, 2 extreme
+2025-10-05 23:19:59,614 - INFO - Starting optimized weather data fetch and store operation
+2025-10-05 23:20:03,810 - INFO - Weather fetch completed: 12/12 cities processed
+2025-10-05 23:20:03,928 - INFO - Weather data inserted for Chennai, India with ID: 40
+2025-10-05 23:20:03,929 - WARNING - Extreme weather detected: Chennai, India - High wind speed: 22.0 km/h
+2025-10-05 23:20:03,992 - INFO - Weather data inserted for Bhopal, India with ID: 41
+2025-10-05 23:20:03,994 - WARNING - Extreme weather detected: Bhopal, India - Severe weather: Rain with thunderstorm
+2025-10-05 23:20:03,996 - INFO - Weather operation completed in 4.38s: 2 stored, 2 extreme
+2025-10-05 23:36:47,536 - INFO - Starting optimized weather data fetch and store operation
+2025-10-05 23:36:53,084 - INFO - Weather fetch completed: 12/12 cities processed
+2025-10-05 23:36:53,341 - INFO - Weather data inserted for Chennai, India with ID: 42
+2025-10-05 23:36:53,342 - WARNING - Extreme weather detected: Chennai, India - High wind speed: 22.0 km/h
+2025-10-05 23:36:53,546 - ERROR - create_weather_announcement [Chennai, India] {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (44, null, Extreme Weather Alert - Chennai, India, Extreme weather detected in Chennai, India. Condition: Mist. Tem..., medium, 2025-10-05 18:06:46.171974+00, 42, t).'}
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\DM\services\optimized_weather_service.py", line 81, in fetch_and_store_weather_data
+    ins = self.weather_repo.supabase.table('announcements').insert(ann_payload).execute()
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\postgrest\_sync\request_builder.py", line 77, in execute
+    raise APIError(dict(json_obj))
+postgrest.exceptions.APIError: {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (44, null, Extreme Weather Alert - Chennai, India, Extreme weather detected in Chennai, India. Condition: Mist. Tem..., medium, 2025-10-05 18:06:46.171974+00, 42, t).'}
+2025-10-05 23:36:53,658 - INFO - Weather data inserted for Bhopal, India with ID: 43
+2025-10-05 23:36:53,659 - WARNING - Extreme weather detected: Bhopal, India - Severe weather: Rain with thunderstorm
+2025-10-05 23:36:53,853 - ERROR - create_weather_announcement [Bhopal, India] {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (45, null, Extreme Weather Alert - Bhopal, India, Extreme weather detected in Bhopal, India. Condition: Rain with ..., high, 2025-10-05 18:06:46.473086+00, 43, t).'}
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\DM\services\optimized_weather_service.py", line 81, in fetch_and_store_weather_data
+    ins = self.weather_repo.supabase.table('announcements').insert(ann_payload).execute()
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\postgrest\_sync\request_builder.py", line 77, in execute
+    raise APIError(dict(json_obj))
+postgrest.exceptions.APIError: {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (45, null, Extreme Weather Alert - Bhopal, India, Extreme weather detected in Bhopal, India. Condition: Rain with ..., high, 2025-10-05 18:06:46.473086+00, 43, t).'}
+2025-10-05 23:36:53,856 - INFO - Weather operation completed in 6.32s: 2 stored, 2 extreme
+2025-10-05 23:43:22,753 - INFO - Starting optimized weather data fetch and store operation
+2025-10-05 23:43:27,248 - INFO - Weather data inserted for Delhi, India with ID: 44
+2025-10-05 23:43:27,414 - INFO - Weather data inserted for Kolkata, India with ID: 45
+2025-10-05 23:43:27,530 - INFO - Weather data inserted for Hyderabad, India with ID: 46
+2025-10-05 23:43:27,827 - INFO - Weather data inserted for Bangalore, India with ID: 47
+2025-10-05 23:43:27,952 - INFO - Weather data inserted for Mumbai, India with ID: 48
+2025-10-05 23:43:28,052 - INFO - Weather data inserted for Chennai, India with ID: 49
+2025-10-05 23:43:28,054 - WARNING - Extreme weather detected: Chennai, India - High wind speed: 22.0 km/h
+2025-10-05 23:43:28,236 - ERROR - create_weather_announcement [Chennai, India] {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (46, null, Extreme Weather Alert - Chennai, India, Extreme weather detected in Chennai, India. Condition: Mist. Tem..., medium, 2025-10-05 18:13:20.84712+00, 49, t).'}
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\DM\services\optimized_weather_service.py", line 95, in fetch_and_store_weather_data
+    ins = self.weather_repo.supabase.table('announcements').insert(ann_payload).execute()
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\postgrest\_sync\request_builder.py", line 77, in execute
+    raise APIError(dict(json_obj))
+postgrest.exceptions.APIError: {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (46, null, Extreme Weather Alert - Chennai, India, Extreme weather detected in Chennai, India. Condition: Mist. Tem..., medium, 2025-10-05 18:13:20.84712+00, 49, t).'}
+2025-10-05 23:43:28,340 - INFO - Weather data inserted for Ahmedabad, India with ID: 50
+2025-10-05 23:43:28,547 - INFO - Weather data inserted for Jaipur, India with ID: 51
+2025-10-05 23:43:28,652 - INFO - Weather data inserted for Lucknow, India with ID: 52
+2025-10-05 23:43:28,766 - INFO - Weather data inserted for Pune, India with ID: 53
+2025-10-05 23:43:28,854 - INFO - Weather data inserted for Patna, India with ID: 54
+2025-10-05 23:43:29,077 - INFO - Weather data inserted for Bhopal, India with ID: 55
+2025-10-05 23:43:29,077 - WARNING - Extreme weather detected: Bhopal, India - Severe weather: Rain with thunderstorm
+2025-10-05 23:43:29,281 - ERROR - create_weather_announcement [Bhopal, India] {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (47, null, Extreme Weather Alert - Bhopal, India, Extreme weather detected in Bhopal, India. Condition: Rain with ..., high, 2025-10-05 18:13:21.8887+00, 55, t).'}
+Traceback (most recent call last):
+  File "C:\Users\Praneetha\Desktop\DM\DM\services\optimized_weather_service.py", line 95, in fetch_and_store_weather_data
+    ins = self.weather_repo.supabase.table('announcements').insert(ann_payload).execute()
+  File "C:\Users\Praneetha\Desktop\DM\venv\lib\site-packages\postgrest\_sync\request_builder.py", line 77, in execute
+    raise APIError(dict(json_obj))
+postgrest.exceptions.APIError: {'message': 'null value in column "admin_id" of relation "announcements" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (47, null, Extreme Weather Alert - Bhopal, India, Extreme weather detected in Bhopal, India. Condition: Rain with ..., high, 2025-10-05 18:13:21.8887+00, 55, t).'}
+2025-10-05 23:43:29,284 - INFO - Weather operation completed in 6.53s: 12 stored, 2 extreme
+2025-10-05 23:52:02,694 - INFO - Starting optimized weather data fetch and store operation
+2025-10-05 23:52:08,016 - INFO - Weather data inserted for Hyderabad, India with ID: 56
+2025-10-05 23:52:08,125 - INFO - Weather data inserted for Delhi, India with ID: 57
+2025-10-05 23:52:08,449 - INFO - Weather data inserted for Kolkata, India with ID: 58
+2025-10-05 23:52:08,651 - INFO - Weather data inserted for Bangalore, India with ID: 59
+2025-10-05 23:52:08,729 - INFO - Weather data inserted for Mumbai, India with ID: 60
+2025-10-05 23:52:08,912 - INFO - Weather data inserted for Chennai, India with ID: 61
+2025-10-05 23:52:08,914 - WARNING - Extreme weather detected: Chennai, India - High wind speed: 22.0 km/h
+2025-10-05 23:52:09,624 - INFO - Weather data inserted for Ahmedabad, India with ID: 62
+2025-10-05 23:52:09,689 - INFO - Weather data inserted for Lucknow, India with ID: 63
+2025-10-05 23:52:09,899 - INFO - Weather data inserted for Patna, India with ID: 64
+2025-10-05 23:52:09,958 - INFO - Weather data inserted for Pune, India with ID: 65
+2025-10-05 23:52:10,074 - INFO - Weather data inserted for Bhopal, India with ID: 66
+2025-10-05 23:52:10,077 - WARNING - Extreme weather detected: Bhopal, India - Severe weather: Rain with thunderstorm
+2025-10-05 23:52:10,602 - INFO - Weather data inserted for Jaipur, India with ID: 67
+2025-10-05 23:52:10,603 - INFO - Weather operation completed in 7.91s: 12 stored, 2 extreme
+2025-10-18 18:37:06,046 - INFO - Weather fetch completed: 12/12 cities processed, 12 extreme conditions found
+2025-10-18 21:56:54,472 - INFO - Weather fetch completed: 12/12 cities processed, 12 extreme conditions found
+2025-10-18 22:16:22,062 - INFO - Weather fetch completed: 12/12 cities processed, 12 extreme conditions found
+2025-10-18 22:16:54,096 - INFO - Weather fetch completed: 12/12 cities processed, 12 extreme conditions found
+2025-10-18 22:19:08,444 - INFO - Weather fetch completed: 12/12 cities processed, 0 extreme conditions found
+2025-10-20 20:37:57,407 - INFO - Weather data inserted for delhi with ID: 164
+2025-10-20 20:37:57,415 - INFO - Weather data stored for delhi with ID: 164
+2025-10-20 20:38:24,598 - INFO - Weather data inserted for delhi with ID: 165
+2025-10-20 20:38:24,599 - INFO - Weather data stored for delhi with ID: 165
+2025-10-20 20:47:22,554 - INFO - Weather fetch completed: 12/12 cities processed, 0 extreme conditions found
+2025-10-20 20:48:06,557 - INFO - Weather data inserted for mumbai with ID: 166
+2025-10-20 20:48:06,562 - INFO - Weather data stored for mumbai with ID: 166
+2025-10-20 21:20:02,424 - INFO - Weather data inserted for chennai with ID: 167
+2025-10-20 21:20:02,428 - INFO - Weather data stored for chennai with ID: 167
+2025-10-27 09:57:44,457 - INFO - Weather fetch completed: 12/12 cities processed, 0 extreme conditions found

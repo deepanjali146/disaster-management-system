@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}ResQchain{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="home-hero">
+        <h1>ResQchain</h1>
+        <p>Rapid disaster response, verified updates, and community support — all in one place.</p>
+        {% if 'user' not in session %}
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg home-btn"><i class="fas fa-user-plus me-2"></i>Sign Up</a>
+                <a href="{{ url_for('signin') }}" class="btn btn-outline-primary btn-lg home-btn"><i class="fas fa-right-to-bracket me-2"></i>Sign In</a>
+            </div>
+        {% else %}
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg home-btn"><i class="fas fa-gauge me-2"></i>Open Dashboard</a>
+        {% endif %}
+    </div>
+
+    <!-- Motivation Cards -->
+    <div class="motivation-cards">
+        <div class="motivation-card">
+            <i class="fas fa-heart"></i>
+            <h3>Community First</h3>
+            <p>We believe in the power of community. When disaster strikes, we come together to support, protect, and rebuild. Every life matters, every story counts.</p>
+        </div>
+        <div class="motivation-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Safety & Security</h3>
+            <p>Your safety is our priority. With real-time alerts, verified information, and emergency services coordination, we ensure you're never alone in a crisis.</p>
+        </div>
+        <div class="motivation-card">
+            <i class="fas fa-hands-helping"></i>
+            <h3>Rapid Response</h3>
+            <p>Time is critical in emergencies. Our platform connects you with the right help, at the right time, ensuring faster response and better outcomes.</p>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5">
+        <h2 class="mb-4">Together, We Are Stronger</h2>
+        <p class="lead mb-4">Join thousands of community members who are making a difference in disaster response and recovery.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+flask
+supabase
+python-dotenv
+geopy
+overpy
+requests
+redis
+celery
+qrcode[pil]
+Pillow

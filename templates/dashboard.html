@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Welcome Header -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Welcome, {{ user }} 👋</h2>
+        <p class="text-muted">Your Disaster Management Dashboard</p>
+        <hr class="w-25 mx-auto">
+    </div>
+
+    <!-- Weather Alerts Section removed -->
+
+    <!-- Recent Announcements -->
+    {% if announcements %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bullhorn me-2"></i>Recent Announcements
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for announcement in announcements[:3] %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ announcement.title }}</h6>
+                                    <p class="card-text small">{{ announcement.description[:80] }}...</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-{{ 'danger' if announcement.severity == 'critical' else 'warning' if announcement.severity == 'high' else 'info' if announcement.severity == 'medium' else 'secondary' }}">
+                                            {{ announcement.severity }}
+                                        </span>
+                                        
+                                    </div>
+                                    <small class="text-muted d-block mt-2">{{ announcement.timestamp[:10] }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('announcements') }}" class="btn btn-outline-primary btn-sm">
+                            View All Announcements
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- cards -->
+    <div class="row text-center">
+        <!-- Report Incident -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 h-100 dashboard-card">
+                <div class="card-body">
+                    <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                    <h3 class="card-title h5">Report Incident</h3>
+                    <p class="card-text text-muted">Report a disaster or emergency situation immediately.</p>
+                    <a href="{{ url_for('report_incident') }}" class="btn btn-danger">Report</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nearby Shelters -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 h-100 dashboard-card">
+                <div class="card-body">
+                    <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title h5">Nearby Shelters</h3>
+                    <p class="card-text text-muted">Find safe shelters near your location during emergencies.</p>
+                    <a href="{{ url_for('nearby_shelters') }}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donate -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg border-0 h-100 dashboard-card">
+                <div class="card-body">
+                    <i class="fas fa-hand-holding-heart fa-3x text-success mb-3"></i>
+                    <h3 class="card-title h5">Donate Money</h3>
+                    <p class="card-text text-muted">Contribute to relief efforts and help affected communities.</p>
+                    <a href="{{ url_for('donate') }}" class="btn btn-success">Donate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcements + Medical -->
+    <div class="row text-center">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg border-0 h-100 dashboard-card">
+                <div class="card-body">
+                    <i class="fas fa-bullhorn fa-3x text-warning mb-3"></i>
+                    <h3 class="card-title h5">Live Announcements</h3>
+                    <p class="card-text text-muted">Real-time weather alerts, flood warnings, and emergency updates.</p>
+                    <a href="{{ url_for('announcements') }}" class="btn btn-warning">
+                        <i class="fas fa-broadcast-tower me-1"></i>Live Updates
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg border-0 h-100 dashboard-card">
+                <div class="card-body">
+                    <i class="fas fa-briefcase-medical fa-3x text-info mb-3"></i>
+                    <h3 class="card-title h5">Medical Assistance</h3>
+                    <p class="card-text text-muted">Access medical help and emergency healthcare resources.</p>
+                    <a href="{{ url_for('medical') }}" class="btn btn-info">Access</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
