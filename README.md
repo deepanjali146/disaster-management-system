@@ -225,41 +225,24 @@ The system uses the following main tables:
 
 ## 🚀 Deployment
 
-### Production Deployment
+This project can be deployed using platforms like Render.
 
-1. **Set up production environment**
-   ```bash
-   export FLASK_ENV=production
-   export REDIS_URL=your-production-redis-url
-   ```
+### Steps:
+1. Push the project to GitHub
+2. Connect the repository to Render
+3. Set environment variables:
+   - SUPABASE_URL
+   - SUPABASE_KEY
+   - SECRET_KEY
+4. Use start command:
+   gunicorn app:app
 
-2. **Configure production database**
-   - Update Supabase connection settings
-   - Run database migrations
+### Note:
+Advanced production setup (Celery, Redis, Nginx) can be added for scaling if required.
 
-3. **Set up Celery workers**
-   ```bash
-   celery -A celery_config worker --loglevel=info --concurrency=4
-   ```
 
-4. **Configure reverse proxy** (Nginx)
-   ```nginx
-   server {
-       listen 80;
-       server_name your-domain.com;
-       
-       location / {
-           proxy_pass http://127.0.0.1:5000;
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-       }
-   }
-   ```
+   
 
-5. **Set up SSL certificate**
-   ```bash
-   certbot --nginx -d your-domain.com
-   ```
 
 ## 🤝 Contributing
 
