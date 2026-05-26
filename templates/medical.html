@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Assistance{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Medical Assistance</h2>
+    
+    <!-- Emergency Alert -->
+    <div class="alert alert-danger text-center mb-4" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>For immediate medical emergencies, dial 102 for ambulance or 112 for emergency services.</strong>
+    </div>
+    
+    <!-- Search form -->
+    <div class="row mb-4">
+        <div class="col-md-8 mx-auto">
+            <form id="medicalSearchForm">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="locationInput" placeholder="Enter your location (e.g., 'Mumbai, India' or 'New York, NY')" required>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-search me-2"></i>Find Nearby Hospitals</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Hospital cards -->
+    <div class="row" id="hospitalResults">
+        <!-- Hospital results will be loaded here -->
+    </div>
+    
+    <!-- Emergency Contacts -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Emergency Contacts</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">National Emergency: <strong>112</strong></li>
+                                <li class="list-group-item">Ambulance: <strong>102</strong></li>
+                                <li class="list-group-item">Disaster Management: <strong>108</strong></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Police: <strong>100</strong></li>
+                                <li class="list-group-item">Fire: <strong>101</strong></li>
+                                <li class="list-group-item">Women Helpline: <strong>1091</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('medicalSearchForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const location = document.getElementById('locationInput').value;
+    if (!location) {
+        alert("Please enter a location");
+        return;
+    }
+
+    // Show loading
+    document.getElementById('hospitalResults').innerHTML = '<div class="col-12 text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+    try {
+        const geoResp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}&limit=1`);
+        const geoData = await geoResp.json();
+        
+        if (geoData.length === 0) {
+            document.getElementById('hospitalResults').innerHTML = '<div class="col-12"><div class="alert alert-warning">No results found for this location. Please try a different address.</div></div>';
+            return;
+        }
+
+        const lat = geoData[0].lat;
+        const lon = geoData[0].lon;
+
+        const query = `
+            [out:json];
+            (
+              node["amenity"="hospital"](around:5000,${lat},${lon});
+              node["amenity"="clinic"](around:5000,${lat},${lon});
+              node["amenity"="doctors"](around:5000,${lat},${lon});
+              node["amenity"="pharmacy"](around:5000,${lat},${lon});
+            );
+            out;
+        `;
+        
+        const url = "https://overpass-api.de/api/interpreter?data=" + encodeURIComponent(query);
+        const resp = await fetch(url);
+        const data = await resp.json();
+
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(position => {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+
+            let html = "";
+            if (!data.elements || data.elements.length === 0) {
+                html = '<div class="col-12"><div class="alert alert-info">No medical facilities found nearby. Please try a different location.</div></div>';
+            } else {
+                // Sort by distance (nearest first)
+                data.elements.sort((a, b) => {
+                    const distA = Math.sqrt(Math.pow(a.lat - userLat, 2) + Math.pow(a.lon - userLon, 2));
+                    const distB = Math.sqrt(Math.pow(b.lat - userLat, 2) + Math.pow(b.lon - userLon, 2));
+                    return distA - distB;
+                });
+                
+                data.elements.forEach(place => {
+                    const name = place.tags.name || "Unnamed Facility";
+                    const phone = place.tags.phone || place.tags['contact:phone'] || "Contact not available";
+                    const type = place.tags.amenity || "Medical Facility";
+                    const mapsUrl = `https://www.google.com/maps/dir/${userLat},${userLon}/${place.lat},${place.lon}`;
+                    
+                    // Calculate distance in km
+                    const distance = Math.sqrt(Math.pow(place.lat - userLat, 2) + Math.pow(place.lon - userLon, 2)) * 111; // Rough conversion to km
+                    const distanceText = distance < 1 ? `${(distance * 1000).toFixed(0)}m` : `${distance.toFixed(1)}km`;
+
+                    html += `
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 medical-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="https://www.google.com/maps/dir/${userLat},${userLon}/${place.lat},${place.lon}" 
+                                           target="_blank" class="text-decoration-underline" 
+                                           style="color: var(--primary);">
+                                            ${name}
+                                        </a>
+                                    </h5>
+                                    <p class="card-text text-muted">
+                                        <i class="fas fa-tag me-1"></i> Type: ${type}<br>
+                                        <i class="fas fa-phone me-1"></i> Phone: ${phone}<br>
+                                        <i class="fas fa-route me-1"></i> Distance: ${distanceText}<br>
+                                        <i class="fas fa-map-marker-alt me-1"></i> Lat: ${place.lat}, Lon: ${place.lon}
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-info-circle me-1"></i> Click on the hospital name for directions
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('hospitalResults').innerHTML = html;
+        }, err => {
+            alert("Unable to retrieve your location: " + err.message);
+        });
+    } catch (error) {
+        document.getElementById('hospitalResults').innerHTML = '<div class="col-12"><div class="alert alert-danger">Error searching for hospitals. Please try again later.</div></div>';
+    }
+});
+
+</script>
+{% endblock %}

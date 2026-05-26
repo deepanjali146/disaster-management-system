@@ -1,0 +1,567 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="text-gradient mb-2">Admin Dashboard</h1>
+                    <p class="text-muted">Manage incidents, weather alerts, and system operations</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('admin_data_view') }}" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-database me-1"></i>View All Data
+                    </a>
+                    <span class="badge bg-gradient-primary fs-6 px-3 py-2">Admin</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Updates (from teams/government) -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bullhorn me-2"></i>Emergency Updates
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if admin_updates %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Team</th>
+                                        <th>Assignment</th>
+                                        <th>Location</th>
+                                        <th>Rescued</th>
+                                        <th>Critical</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                        <th>Update Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for update in admin_updates %}
+                                    <tr>
+                                        <td><strong>{{ update.team_name }}</strong></td>
+                                        <td>#{{ update.assignment_id }}</td>
+                                        <td>{{ update.location or 'N/A' }}</td>
+                                        <td><span class="badge bg-success">{{ update.rescued_count or 0 }}</span></td>
+                                        <td><span class="badge bg-danger">{{ update.critical_count or 0 }}</span></td>
+                                        <td>
+                                            <span class="incident-severity severity-{{ update.severity|lower if update.severity else 'medium' }}">
+                                                {{ update.severity|title if update.severity else 'Medium' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{% if update.assignment_status == 'completed' %}success{% elif update.assignment_status == 'in_progress' %}warning{% else %}info{% endif %}">
+                                                {{ update.assignment_status|title if update.assignment_status else 'Assigned' }}
+                                            </span>
+                                        </td>
+                                        <td><small class="text-muted">{{ update.update_time[:16] if update.update_time else 'Recently' }}</small></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-clipboard-list fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No emergency updates yet</h5>
+                            <p class="text-muted">Updates from emergency teams will appear here</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ total_incidents or 0 }}</div>
+                <div class="admin-stats-label">Total Incidents</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ forwarded_incidents|length if forwarded_incidents else (forwarded_incidents_count or 0) }}</div>
+                <div class="admin-stats-label">Forwarded to Government</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">{{ total_donations or 0 }}</div>
+                <div class="admin-stats-label">Total Donations</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="admin-stats-card">
+                <div class="admin-stats-number">₹{{ total_amount or 0 }}</div>
+                <div class="admin-stats-label">Amount Collected</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Pending Incidents Section -->
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Pending Incidents
+                        <span class="badge bg-light text-dark ms-2">{{ pending_incidents|length if pending_incidents else 0 }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if pending_incidents %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Location</th>
+                                        <th>Description</th>
+                                        <th>Severity</th>
+                                        <th>Reports</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for incident in pending_incidents %}
+                                    <tr class="incident-card">
+                                        <td><strong>#{{ incident.id }}</strong></td>
+                                        <td>
+                                            <div>
+                                                <strong>{{ incident.location }}</strong>
+                                                {% if incident.pincode %}
+                                                <br><small class="text-muted">Pincode: {{ incident.pincode }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-truncate" style="max-width: 200px;" title="{{ incident.description }}">
+                                                {{ incident.description[:100] }}{% if incident.description|length > 100 %}...{% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="incident-severity severity-{{ incident.severity|lower }}">
+                                                {{ incident.severity|title }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">{{ incident.report_count or 1 }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <form method="POST" action="{{ url_for('forward_incident') }}" class="d-inline">
+                                                    <input type="hidden" name="incident_id" value="{{ incident.id }}">
+                                                    <button type="submit" class="btn btn-sm btn-primary" title="Forward to Government">
+                                                        <i class="fas fa-share me-1"></i>Forward
+                                                    </button>
+                                                </form>
+                                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#incidentModal{{ incident.id }}" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <form method="POST" action="{{ url_for('delete_incident_route', incident_id=incident.id) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this incident?')">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No pending incidents</h5>
+                            <p class="text-muted">All incidents have been processed</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Requests & Ongoing Work Section -->
+            <div class="card mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-tasks me-2"></i>Requests & Ongoing Work
+                        <span class="badge bg-light text-dark ms-2">{{ forwarded_incidents|length if forwarded_incidents else 0 }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if forwarded_incidents %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Location</th>
+                                        <th>Description</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                        <th>Forwarded</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for incident in forwarded_incidents %}
+                                    <tr class="incident-card">
+                                        <td><strong>#{{ incident.id }}</strong></td>
+                                        <td>
+                                            <div>
+                                                <strong>{{ incident.location }}</strong>
+                                                {% if incident.pincode %}
+                                                <br><small class="text-muted">Pincode: {{ incident.pincode }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-truncate" style="max-width: 200px;" title="{{ incident.description }}">
+                                                {{ incident.description[:100] }}{% if incident.description|length > 100 %}...{% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="incident-severity severity-{{ incident.severity|lower }}">
+                                                {{ incident.severity|title }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info fs-6">Forwarded to Government</span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ incident.forwarded_at[:10] if incident.forwarded_at else 'Recently' }}</small>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#incidentModal{{ incident.id }}" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <span class="text-success">
+                                                    <i class="fas fa-check-circle me-1"></i>Sent to Government
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                            <h5 class="text-muted">No forwarded incidents</h5>
+                            <p class="text-muted">Forwarded incidents will appear here</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather & System Actions -->
+        <div class="col-lg-4 mb-4">
+            <!-- Weather Actions -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cloud-sun me-2"></i>Weather Management
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('fetch_extreme_weather') }}" class="mb-3">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-exclamation-triangle me-1"></i>Scan for Extreme Weather
+                            </button>
+                        </div>
+                        <small class="text-muted">Ultra-fast parallel scan of major Indian cities</small>
+                    </form>
+                    
+                    <form method="POST" action="{{ url_for('check_weather_alerts') }}" class="mb-3">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-check-circle me-1"></i>Check & Remove Resolved Alerts
+                            </button>
+                        </div>
+                        <small class="text-muted">Removes weather alerts where conditions are normal</small>
+                    </form>
+                    
+                    <hr>
+                    
+                    <!-- Manual Location Fetch -->
+                    <form method="POST" action="{{ url_for('fetch_weather') }}">
+                        <div class="mb-3">
+                            <label for="manual_location" class="form-label">Manual Weather Check</label>
+                            <input type="text" class="form-control" id="manual_location" name="location" placeholder="Enter city name" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-info">
+                                <i class="fas fa-search me-1"></i>Check Weather
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Donation Management -->
+            <!-- Donation Management -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-heart me-2"></i>Donation Management
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center mb-3">
+                        <div class="col-6">
+                            <div class="donation-card">
+                                <div class="h4 text-success mb-1">{{ total_donations or 0 }}</div>
+                                <small class="text-muted">Total Donations</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="donation-card">
+                                <div class="h4 text-success mb-1">₹{{ total_amount or 0 }}</div>
+                                <small class="text-muted">Amount Collected</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <a href="{{ url_for('pending_donations') }}" class="btn btn-outline-success">
+                            <i class="fas fa-list me-1"></i>View Pending Donations
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cogs me-2"></i>System Status
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Database</span>
+                        <span class="badge bg-success">Online</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Weather API</span>
+                        <span class="badge bg-success">Active</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>SMS Service</span>
+                        <span class="badge bg-{% if sms_configured %}success{% else %}warning{% endif %}">
+                            {% if sms_configured %}Active{% else %}Not Configured{% endif %}
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>UPI Payments</span>
+                        <span class="badge bg-success">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Announcement Management -->
+            <div class="card mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bullhorn me-2"></i>Announcements
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if announcements %}
+                    <div class="list-group list-group-flush">
+                        {% for ann in announcements %}
+                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="me-3">
+                                <div class="fw-semibold">{{ ann.title }}</div>
+                                <small class="text-muted">{{ ann.timestamp[:16] if ann.timestamp else '' }}</small>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#editAnn{{ ann.id }}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <form method="POST" action="{{ url_for('delete_announcement_route', announcement_id=ann.id) }}" onsubmit="return confirm('Delete this announcement?')">
+                                    <input type="hidden" name="id" value="{{ ann.id }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editAnn{{ ann.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-gradient-primary text-white">
+                                        <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Announcement</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <form method="POST" action="{{ url_for('edit_announcement') }}">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="id" value="{{ ann.id }}">
+                                            <div class="mb-3">
+                                                <label class="form-label">Title</label>
+                                                <input type="text" name="title" class="form-control" value="{{ ann.title }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Description</label>
+                                                <textarea name="description" class="form-control" rows="4" required>{{ ann.description }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-3">
+                        <i class="fas fa-bullhorn fa-2x text-muted mb-2"></i>
+                        <p class="text-muted">No announcements</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<!-- Incident Detail Modals: Pending Incidents -->
+{% for incident in pending_incidents or [] %}
+<div class="modal fade" id="incidentModal{{ incident.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Incident Details #{{ incident.id }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Location Information</h6>
+                        <p><strong>Location:</strong> {{ incident.location }}</p>
+                        {% if incident.pincode %}
+                        <p><strong>Pincode:</strong> {{ incident.pincode }}</p>
+                        {% endif %}
+                        {% if incident.latitude and incident.longitude %}
+                        <p><strong>Coordinates:</strong> {{ incident.latitude }}, {{ incident.longitude }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Incident Details</h6>
+                        <p><strong>Severity:</strong> 
+                            <span class="incident-severity severity-{{ incident.severity|lower }}">
+                                {{ incident.severity|title }}
+                            </span>
+                        </p>
+                        <p><strong>Status:</strong> 
+                            <span class="badge bg-{% if incident.status == 'pending' %}warning{% elif incident.status == 'forwarded' %}info{% else %}success{% endif %}">
+                                {{ incident.status|title }}
+                            </span>
+                        </p>
+                        <p><strong>Reports:</strong> {{ incident.report_count or 1 }}</p>
+                    </div>
+                </div>
+                <hr>
+                <h6>Description</h6>
+                <p>{{ incident.description }}</p>
+                {% if incident.timestamp %}
+                <p><small class="text-muted">Reported on: {{ incident.timestamp }}</small></p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                {% if incident.status != 'forwarded' %}
+                <form method="POST" action="{{ url_for('forward_incident') }}" class="d-inline">
+                    <input type="hidden" name="incident_id" value="{{ incident.id }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-share me-1"></i>Forward to Government
+                    </button>
+                </form>
+                {% endif %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Incident Detail Modals: Forwarded Incidents -->
+{% for incident in forwarded_incidents or [] %}
+<div class="modal fade" id="incidentModal{{ incident.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Incident Details #{{ incident.id }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Location Information</h6>
+                        <p><strong>Location:</strong> {{ incident.location }}</p>
+                        {% if incident.pincode %}
+                        <p><strong>Pincode:</strong> {{ incident.pincode }}</p>
+                        {% endif %}
+                        {% if incident.latitude and incident.longitude %}
+                        <p><strong>Coordinates:</strong> {{ incident.latitude }}, {{ incident.longitude }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Incident Details</h6>
+                        <p><strong>Severity:</strong> 
+                            <span class="incident-severity severity-{{ incident.severity|lower }}">
+                                {{ incident.severity|title }}
+                            </span>
+                        </p>
+                        <p><strong>Status:</strong> 
+                            <span class="badge bg-{% if incident.status == 'pending' %}warning{% elif incident.status == 'forwarded' %}info{% else %}success{% endif %}">
+                                {{ incident.status|title }}
+                            </span>
+                        </p>
+                        <p><strong>Reports:</strong> {{ incident.report_count or 1 }}</p>
+                        {% if incident.forwarded_at %}
+                        <p><strong>Forwarded:</strong> {{ incident.forwarded_at }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+                <h6>Description</h6>
+                <p>{{ incident.description }}</p>
+                {% if incident.timestamp %}
+                <p><small class="text-muted">Reported on: {{ incident.timestamp }}</small></p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

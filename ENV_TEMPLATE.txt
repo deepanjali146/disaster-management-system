@@ -1,0 +1,44 @@
+# Disaster Management System Environment Configuration
+# Copy this file to .env and fill in your actual values
+
+# Flask Configuration
+FLASK_SECRET_KEY=your-secret-key-here
+
+# Supabase Configuration
+SUPABASE_URL=https://cqcbesmvlksjgttoiryv.supabase.co
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxY2Jlc212bGtzamd0dG9pcnl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzMTk5NjcsImV4cCI6MjA3MTg5NTk2N30.ZQAlZcUbcZeZa7Hu_qHlyyp-Kqn6CyC6Am6bc9K1hjc
+
+# Weather API Configuration (Optional)
+WEATHER_API_KEY=your_openweathermap_api_key_here
+
+# SMS Configuration (Free API - TextBelt)
+SMS_API_KEY=your_textbelt_api_key_here
+
+# Twilio SMS Configuration (Optional - if you prefer Twilio)
+TWILIO_ACCOUNT_SID=your_twilio_account_sid_here
+TWILIO_AUTH_TOKEN=your_twilio_auth_token_here
+TWILIO_PHONE_NUMBER=your_twilio_phone_number_here
+
+# UPI Payment Configuration
+# Money will be sent directly to: devsakhya2004@okicici
+# No additional configuration needed for UPI payments
+
+# Redis Configuration for Celery
+REDIS_URL=redis://localhost:6379/0
+
+# Application Configuration
+APP_BASE_URL=http://localhost:5000
+
+# Instructions:
+# 1. Create a new file named ".env" in the project root
+# 2. Copy the above values into the .env file
+# 3. Replace the placeholder values with your actual API keys and credentials
+# 4. Make sure the .env file is in the same directory as app.py
+# 5. Never commit the .env file to version control
+
+# Setup Instructions:
+# 1. Supabase: Get your URL and key from https://supabase.com
+# 2. Twilio: Sign up at https://twilio.com and get your credentials
+# 3. Razorpay: Sign up at https://razorpay.com and get your API keys
+# 4. Redis: Install Redis locally or use a cloud service like Redis Cloud
+# 5. Weather API: Optional, get from https://openweathermap.org
